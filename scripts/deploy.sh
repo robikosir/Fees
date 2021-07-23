@@ -12,5 +12,5 @@ echo '---------- Docker compose deploy started ----------'
 sudo docker-compose -f $1 up -d
 echo '---------- Docker compose deploy complete ----------'
 echo '---------- Docker compose migrate started ----------'
-sudo docker-compose -f $1 run --rm django python manage.py migrate
+sudo docker-compose -f $1 run --rm drf python manage.py migrate
 echo '---------- Docker compose migrate complete ----------'
