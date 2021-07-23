@@ -1,8 +1,10 @@
 #!/bin/bash
 git checkout master
 echo '---------- Git checkout master complete ----------'
-git pull
-echo '---------- Git pull complete ----------'
+git fetch --all
+echo '---------- Git fetch complete ----------'
+git reset --hard origin/master
+echo '---------- Git reset master ----------'
 echo '---------- Docker compose build started ----------'
 sudo docker-compose -f $1 build
 echo '---------- Docker compose build complete ----------'
