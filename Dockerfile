@@ -4,4 +4,4 @@ RUN mkdir /fees
 WORKDIR /fees
 COPY . /fees/
 RUN pip install -r requirements.txt
-EXPOSE 8000
+EXPOSE 8083
