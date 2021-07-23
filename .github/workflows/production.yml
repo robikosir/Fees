@@ -1,0 +1,21 @@
+name: Production deploy
+
+on:
+  push:
+    branches: [ prod ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Production deployment
+    steps:
+    - name: SSH
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          echo 'Connected to server, starting deployment'
+          cd Fees
+          . ./scripts/deploy.sh production.yml
+        host: ${{ secrets.PRODUCTION_IP }}
+        user: fees
+        key: ${{ secrets.PRODUCTION_PRIVATE_KEY}}
