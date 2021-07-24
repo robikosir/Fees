@@ -18,14 +18,16 @@ from django.urls import path, include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
-from fees.users import views
+from fees.teams.urls import router as team_router
+from fees.users.urls import router as user_router
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
+router.registry.extend(user_router.registry)
+router.registry.extend(team_router.registry)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+    path('api/v1/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
     path('api/auth/', obtain_auth_token),
 ]

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'fees.users.apps.UsersConfig',
+    'fees.teams.apps.TeamsConfig',
 ]
 
 MIDDLEWARE = [

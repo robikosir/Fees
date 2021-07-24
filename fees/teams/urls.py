@@ -1,11 +1,11 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from fees.users import views
+from fees.teams import views
 
 router = routers.DefaultRouter()
 
-router.register('users', views.UserViewSet, basename='users')
+router.register('teams', views.TeamViewSet, basename='teams')
 urlpatterns = [
     path('', include(router.urls)),
 ]
