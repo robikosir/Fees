@@ -15,5 +15,5 @@ echo '---------- Docker compose migrate started ----------'
 sudo docker-compose -f $1 run --rm drf python manage.py migrate
 echo '---------- Docker compose migrate complete ----------'
 echo '---------- Docker compose collectstatic started ----------'
-yes | sudo docker-compose -f $1 run --rm drf python manage.py collectstatic
+yes | sudo docker-compose -f $1 run --rm drf python manage.py collectstatic --noinput
 echo '---------- Docker compose collectstatic completed ----------'
