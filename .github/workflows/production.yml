@@ -15,7 +15,7 @@ jobs:
         command: |
           echo 'Connected to server, starting deployment'
           cd Fees
-          . ./scripts/deploy.sh production.yml
+          . ./scripts/deploy.sh prod.yml
         host: ${{ secrets.PRODUCTION_IP }}
         user: fees
         key: ${{ secrets.PRODUCTION_PRIVATE_KEY}}
