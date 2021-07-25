@@ -35,5 +35,7 @@ services:
       dockerfile: docker/prod/nginx/Dockerfile
     volumes:
       - static_files:/static_files
+      - ./docker/prod/nginx/certs:/etc/nginx/certs
     ports:
       - 80:80
+      - 443:443
