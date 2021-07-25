@@ -3,6 +3,7 @@ version: '3'
 volumes:
   production_postgres_data: {}
   production_postgres_data_backups: {}
+  letsencrypt: {}
   static_files:
 
 services:
@@ -33,9 +34,12 @@ services:
     build:
       context: .
       dockerfile: docker/prod/nginx/Dockerfile
+    env_file:
+      - ./.envs/.nginx
+    restart: always
     volumes:
       - static_files:/static_files
-      - ./docker/prod/nginx/certs:/etc/nginx/certs
+      - letsencrypt:/etc/letsencrypt
     ports:
       - 80:80
       - 443:443
