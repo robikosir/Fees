@@ -1,3 +1,4 @@
 -r base.txt
 
 django-debug-toolbar
+pylint==2.9.5

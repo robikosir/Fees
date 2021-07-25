@@ -1,12 +1,33 @@
 version: '3'
 
+volumes:
+  pgdata:
+  static_files:
+
 services:
   drf:
     build:
       context: .
       dockerfile: docker/dev/python/Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
+      - static_files:/static_files
     ports:
       - "8000:8000"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    env_file:
+      - ./.envs/.postgres
+    depends_on:
+      - nginx
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/prod/nginx/Dockerfile
+    volumes:
+      - static_files:/static_files
+    ports:
+      - 80:80

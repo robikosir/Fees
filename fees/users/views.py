@@ -14,3 +14,11 @@ class UserViewSet(mixins.CreateModelMixin,
     serializer_class = UserSerializer
     queryset = User.objects.all()
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_permissions(self):
+        if self.action == 'create':
+            self.permission_classes = (permissions.AllowAny,)
+        return super().get_permissions()
+
+    def validate(self, attrs):
+        return attrs
