@@ -13,7 +13,7 @@ class TeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Team
-        fields = ['id', 'name', 'players', 'fees']
+        fields = ['id', 'name', 'currency', 'players', 'fees']
         depth = 2
 
 
@@ -23,7 +23,7 @@ class TeamListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Team
-        fields = ['id', 'name', 'players', 'fees']
+        fields = ['id', 'name', 'currency', 'players', 'fees']
         depth = 2
 
 
