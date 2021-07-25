@@ -1,7 +1,7 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from fees.teams.models import Team
+from fees.users.models import User
 from fees.users.serializers import UserSerializer
 
 

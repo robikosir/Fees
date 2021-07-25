@@ -1,5 +1,6 @@
-from django.contrib.auth.models import User
 from django.db import models
+
+from fees.users.models import User
 
 
 class Team(models.Model):
