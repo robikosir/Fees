@@ -1,8 +1,10 @@
 version: '3'
 
 volumes:
-  pgdata:
+  production_postgres_data: {}
+  production_postgres_data_backups: {}
   static_files:
+
 services:
   drf:
     build:
@@ -20,6 +22,9 @@ services:
       - postgres
   postgres:
     image: postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+      - production_postgres_data_backups:/backups
     env_file:
       - ./.envs/.postgres
     depends_on:
