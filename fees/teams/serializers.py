@@ -8,8 +8,8 @@ from fees.users.serializers import UserSerializer
 
 
 class TeamSerializer(serializers.ModelSerializer):
-    players = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True)
-    fees = serializers.PrimaryKeyRelatedField(queryset=Fee.objects.all(), many=True)
+    players = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True, required=False)
+    fees = serializers.PrimaryKeyRelatedField(queryset=Fee.objects.all(), many=True, required=False)
 
     class Meta:
         model = Team

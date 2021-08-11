@@ -21,11 +21,13 @@ from rest_framework.authtoken.views import obtain_auth_token
 from fees.teams.urls import router as team_router
 from fees.users.urls import router as user_router
 from fees.fees.urls import router as fee_router
+from fees.player_fees.urls import router as player_fee_router
 
 router = routers.DefaultRouter()
 router.registry.extend(user_router.registry)
 router.registry.extend(team_router.registry)
 router.registry.extend(fee_router.registry)
+router.registry.extend(player_fee_router.registry)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

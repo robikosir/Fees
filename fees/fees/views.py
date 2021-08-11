@@ -9,8 +9,9 @@ class FeeViewSet(mixins.CreateModelMixin,
                  mixins.ListModelMixin,
                  mixins.RetrieveModelMixin,
                  mixins.UpdateModelMixin,
+                 mixins.DestroyModelMixin,
                  viewsets.GenericViewSet):
     serializer_class = FeeSerializer
     queryset = Fee.objects.all()
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 

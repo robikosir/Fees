@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'fees.users.apps.UsersConfig',
     'fees.teams.apps.TeamsConfig',
     'fees.fees.apps.FeesConfig',
+    'fees.player_fees.apps.PlayerFeesConfig',
     # CORS
     'corsheaders',
 ]
