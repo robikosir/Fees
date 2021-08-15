@@ -13,9 +13,12 @@ class TeamViewSet(mixins.CreateModelMixin,
                   viewsets.GenericViewSet):
     serializer_class = TeamSerializer
     queryset = Team.objects.all()
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     def get_serializer_class(self):
         if self.action == 'list':
             return TeamListSerializer
         return super().get_serializer_class()
+
+    def get_queryset(self, *args, **kwargs):
+        return Team.objects.filter(players__in=[self.request.user])
