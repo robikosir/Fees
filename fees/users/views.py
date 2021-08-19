@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from fees.helpers.email_helper.helper import send_invite_email
 from fees.users.models import User
-from fees.users.serializers import UserSerializer
+from fees.users.serializers import UserSerializer, ChangePasswordSerializer
 
 
 class UserViewSet(mixins.CreateModelMixin,
@@ -39,3 +39,18 @@ class UserViewSet(mixins.CreateModelMixin,
         headers = self.get_success_headers(serializer.data)
         send_invite_email([data["email"]], data["first_name"], data["password"])
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    @action(methods=['post'], detail=False)
+    def change_password(self, request):
+        serializer = ChangePasswordSerializer(data=request.data)
+        self.object = request.user
+
+        if serializer.is_valid():
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            return Response(status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

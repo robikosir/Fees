@@ -1,3 +1,4 @@
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
 from fees.users.models import User
@@ -21,3 +22,8 @@ class UserSerializer(serializers.ModelSerializer):
             fields['password'].required = False
 
         return fields
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
