@@ -1,5 +1,7 @@
 from rest_framework import viewsets, mixins
 from rest_framework import permissions
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from fees.users.models import User
 from fees.users.serializers import UserSerializer
@@ -22,3 +24,7 @@ class UserViewSet(mixins.CreateModelMixin,
 
     def validate(self, attrs):
         return attrs
+
+    @action(methods=['get'], detail=False)
+    def get_self(self, request):
+        return Response(UserSerializer(request.user).data)
