@@ -43,14 +43,13 @@ class UserViewSet(mixins.CreateModelMixin,
     @action(methods=['post'], detail=False)
     def change_password(self, request):
         serializer = ChangePasswordSerializer(data=request.data)
-        self.object = request.user
 
         if serializer.is_valid():
-            if not self.object.check_password(serializer.data.get("old_password")):
+            if not request.user.check_password(serializer.data.get("old_password")):
                 return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
 
-            self.object.set_password(serializer.data.get("new_password"))
-            self.object.save()
+            request.user.set_password(serializer.data.get("new_password"))
+            request.user.save()
             return Response(status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
