@@ -16,7 +16,7 @@ class PlayerFeesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PlayerFees
-        fields = ['id', 'player', 'team', 'fee']
+        fields = ['id', 'player', 'team', 'fee', 'time']
         depth = 2
 
 
