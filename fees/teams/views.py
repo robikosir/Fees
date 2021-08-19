@@ -26,7 +26,13 @@ class TeamViewSet(mixins.CreateModelMixin,
     def perform_create(self, serializer):
         if "players" not in serializer.validated_data:
             serializer.validated_data["players"] = [str(self.request.user.id)]
-        elif self.request.user not in serializer.validated_data["players"]:
+        elif self.request.user.id not in serializer.validated_data["players"]:
             serializer.validated_data["players"].append(str(self.request.user.id))
+
+        if "admins" not in serializer.validated_data:
+            serializer.validated_data["admins"] = [str(self.request.user.id)]
+        elif self.request.user.id not in serializer.validated_data["admins"]:
+            serializer.validated_data["admins"].append(str(self.request.user.id))
+
         return super().perform_create(serializer)
 
