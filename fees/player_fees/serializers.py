@@ -16,17 +16,16 @@ class PlayerFeesSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlayerFees
         fields = ['id', 'player', 'team', 'fee', 'time']
-        depth = 2
 
 
 class PlayerFeesDetailSerializer(serializers.ModelSerializer):
     player = UserSerializer()
+    team = serializers.StringRelatedField()
     fee = FeeSerializer()
 
     class Meta:
         model = PlayerFees
         fields = '__all__'
-        depth = 2
 
 
 class TeamFeeDetailSerializer(serializers.ModelSerializer):
