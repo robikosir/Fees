@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from fees.player_fees.serializers import TeamFeeDetailSerializer
 from fees.teams.models import Team
 from fees.users.models import User
 from fees.users.serializers import UserSerializer
@@ -22,6 +23,15 @@ class TeamListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = ['id', 'name', 'currency', 'players', 'admins']
-        depth = 2
+
+
+class TeamRetrieveSerializer(serializers.ModelSerializer):
+    players = UserSerializer(many=True)
+    admins = UserSerializer(many=True)
+    player_fees_team = TeamFeeDetailSerializer(many=True)
+
+    class Meta:
+        model = Team
+        fields = ['id', 'name', 'currency', 'players', 'admins', 'player_fees_team']
 
 

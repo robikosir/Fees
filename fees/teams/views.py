@@ -2,7 +2,7 @@ from rest_framework import mixins, viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from fees.teams.models import Team
-from fees.teams.serializers import TeamSerializer, TeamListSerializer
+from fees.teams.serializers import TeamSerializer, TeamListSerializer, TeamRetrieveSerializer
 
 
 class TeamViewSet(mixins.CreateModelMixin,
@@ -16,8 +16,10 @@ class TeamViewSet(mixins.CreateModelMixin,
     permission_classes = (IsAuthenticated,)
 
     def get_serializer_class(self):
-        if self.action == 'list' or self.action == 'retrieve':
+        if self.action == 'list':
             return TeamListSerializer
+        elif self.action == 'retrieve':
+            return TeamRetrieveSerializer
         return super().get_serializer_class()
 
     def get_queryset(self, *args, **kwargs):

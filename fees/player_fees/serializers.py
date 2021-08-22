@@ -4,7 +4,6 @@ from fees.fees.models import Fee
 from fees.fees.serializers import FeeSerializer
 from fees.player_fees.models import PlayerFees
 from fees.teams.models import Team
-from fees.teams.serializers import TeamSerializer
 from fees.users.models import User
 from fees.users.serializers import UserSerializer
 
@@ -20,9 +19,8 @@ class PlayerFeesSerializer(serializers.ModelSerializer):
         depth = 2
 
 
-class PlayerFeesListSerializer(serializers.ModelSerializer):
+class PlayerFeesDetailSerializer(serializers.ModelSerializer):
     player = UserSerializer()
-    team = TeamSerializer()
     fee = FeeSerializer()
 
     class Meta:
@@ -30,4 +28,12 @@ class PlayerFeesListSerializer(serializers.ModelSerializer):
         fields = '__all__'
         depth = 2
 
+
+class TeamFeeDetailSerializer(serializers.ModelSerializer):
+    fee = FeeSerializer()
+    player = UserSerializer()
+
+    class Meta:
+        model = PlayerFees
+        fields = ['id', 'player', 'fee', 'time']
 
