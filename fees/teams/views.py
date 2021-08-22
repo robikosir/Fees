@@ -1,5 +1,6 @@
 from rest_framework import mixins, viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from fees.teams.models import Team
 from fees.teams.serializers import TeamSerializer, TeamListSerializer, TeamRetrieveSerializer
@@ -38,3 +39,8 @@ class TeamViewSet(mixins.CreateModelMixin,
 
         return super().perform_create(serializer)
 
+    def retrieve(self, request, *args, **kwargs):
+        instance = Team.objects.filter(**kwargs).prefetch_related("players").prefetch_related(
+            "admins").prefetch_related("player_fees_team__fee").prefetch_related("player_fees_team__player").first()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
