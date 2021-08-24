@@ -18,6 +18,16 @@ class PlayerFeesSerializer(serializers.ModelSerializer):
         fields = ['id', 'player', 'team', 'fee', 'time']
 
 
+class PlayerFeesCreateSerializer(serializers.ModelSerializer):
+    players = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), many=True)
+    team = serializers.PrimaryKeyRelatedField(queryset=Team.objects.all())
+    fees = serializers.PrimaryKeyRelatedField(queryset=Fee.objects.all(), many=True)
+
+    class Meta:
+        model = PlayerFees
+        fields = ['id', 'players', 'team', 'fees', 'time']
+
+
 class PlayerFeesDetailSerializer(serializers.ModelSerializer):
     player = UserSerializer()
     team = serializers.StringRelatedField()
