@@ -1,9 +1,13 @@
 from rest_framework import mixins, viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from fees.fees.models import Fee
+from fees.fees.serializers import FeeSerializer
 from fees.teams.models import Team
 from fees.teams.serializers import TeamSerializer, TeamListSerializer, TeamRetrieveSerializer
+from fees.users.serializers import UserSerializer
 
 
 class TeamViewSet(mixins.CreateModelMixin,
@@ -44,3 +48,13 @@ class TeamViewSet(mixins.CreateModelMixin,
             "admins").prefetch_related("player_fees_team__fee").prefetch_related("player_fees_team__player").first()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+
+    @action(methods=['get'], detail=True)
+    def get_fees_and_players(self, request, pk=None):
+        team = Team.objects.get(id=pk)
+        players = UserSerializer(team.players.all(), many=True)
+        fees = FeeSerializer(Fee.objects.filter(team=team), many=True)
+        return Response({
+            "players": players.data,
+            "fees": fees.data
+        })
