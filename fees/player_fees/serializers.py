@@ -30,12 +30,18 @@ class PlayerFeesCreateSerializer(serializers.ModelSerializer):
 
 class PlayerFeesDetailSerializer(serializers.ModelSerializer):
     player = UserSerializer()
-    team = serializers.StringRelatedField()
+    team = serializers.SerializerMethodField()
     fee = FeeSerializer()
 
     class Meta:
         model = PlayerFees
         fields = '__all__'
+
+    def get_team(self, obj):
+        return {
+            "id": obj.team.id,
+            "name": obj.team.name
+        }
 
 
 class TeamFeeDetailSerializer(serializers.ModelSerializer):
