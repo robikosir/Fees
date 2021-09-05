@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from fees.helpers.email_helper.helper import send_invite_email
+from fees.teams.models import Team
 from fees.users.models import User
 from fees.users.serializers import UserSerializer, ChangePasswordSerializer
 
@@ -36,6 +37,9 @@ class UserViewSet(mixins.CreateModelMixin,
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
+        team = Team.objects.get(id=data["team_id"])
+        team.players.add(User.objects.get(id=serializer.data['id']))
+        team.save()
         headers = self.get_success_headers(serializer.data)
         send_invite_email([data["email"]], data["first_name"], data["password"])
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
