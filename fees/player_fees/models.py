@@ -12,3 +12,4 @@ class PlayerFees(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='player_fees_team')
     fee = models.ForeignKey(Fee, on_delete=models.CASCADE, related_name='player_fees_fee')
     time = models.DateField(default=datetime.now)
+    is_paid = models.BooleanField(default=False)
