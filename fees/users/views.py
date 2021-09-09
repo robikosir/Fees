@@ -33,15 +33,23 @@ class UserViewSet(mixins.CreateModelMixin,
     @action(methods=['post'], detail=False)
     def invite(self, request):
         data = copy.deepcopy(request.data)
-        data["password"] = User.objects.make_random_password()
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
+        try:
+            user = User.objects.filter(email=data["email"])[0]
+            serializer = UserSerializer(user)
+        except Exception as e:
+            data["password"] = User.objects.make_random_password()
+            serializer = self.get_serializer(data=data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            user = User.objects.get(email=data["email"])
+            send_invite_email([data["email"]], data["first_name"], data["password"])
+
         team = Team.objects.get(id=data["team_id"])
-        team.players.add(User.objects.get(id=serializer.data['id']))
+        if user in team.players.all():
+            return Response("already in team")
+        team.players.add(user)
         team.save()
         headers = self.get_success_headers(serializer.data)
-        send_invite_email([data["email"]], data["first_name"], data["password"])
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action(methods=['post'], detail=False)
