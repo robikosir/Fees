@@ -45,6 +45,7 @@ class User(AbstractUser):
     first_name = models.CharField(_('first name'), max_length=150)
     last_name = models.CharField(_('last name'), max_length=150)
     phone_number = models.CharField(_('phone number'), max_length=20, blank=True)
+    country_code = models.CharField(_('country code'), max_length=10, blank=True)
     REQUIRED_FIELDS = []
 
     objects = UserManager()
