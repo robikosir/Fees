@@ -42,8 +42,8 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     USERNAME_FIELD = 'email'
-    first_name = models.CharField(_('first name'), max_length=150)
-    last_name = models.CharField(_('last name'), max_length=150)
+    first_name = models.CharField(_('first name'), max_length=150, blank=True)
+    last_name = models.CharField(_('last name'), max_length=150, blank=True)
     phone_number = models.CharField(_('phone number'), max_length=20, blank=True)
     country_code = models.CharField(_('country code'), max_length=10, blank=True)
     REQUIRED_FIELDS = []
