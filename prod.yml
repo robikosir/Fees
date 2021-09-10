@@ -12,7 +12,7 @@ services:
       dockerfile: docker/prod/python/Dockerfile
     environment:
       DJANGO_SETTINGS_MODULE: config.settings.prod
-    command: gunicorn -w 4 config.wsgi -b 0.0.0.0:8000
+    command: gunicorn -w 4 config.wsgi -b 0.0.0.0:8000 --timeout 0
     volumes:
       - .:/code
       - static_files:/static_files
