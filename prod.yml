@@ -12,7 +12,7 @@ services:
       dockerfile: docker/prod/python/Dockerfile
     environment:
       DJANGO_SETTINGS_MODULE: config.settings.prod
-    command: gunicorn -w 4 config.wsgi -b 0.0.0.0:8000 --timeout 0
+    command: gunicorn -w 4 config.wsgi -b 0.0.0.0:8000 --timeout 90 --log-level debug --access-logfile - --error-logfile -
     volumes:
       - .:/code
       - static_files:/static_files
@@ -20,6 +20,7 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
+    restart: always
   postgres:
     image: postgres
     volumes:
@@ -29,6 +30,7 @@ services:
       - ./.envs/.postgres
     depends_on:
       - nginx
+    restart: always
   nginx:
     build:
       context: .
@@ -37,3 +39,4 @@ services:
       - static_files:/static_files
     ports:
       - 80:80
+    restart: always
