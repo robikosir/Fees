@@ -38,5 +38,5 @@ services:
     volumes:
       - static_files:/static_files
     ports:
-      - 80:80
+      - 8081:8081
     restart: always
