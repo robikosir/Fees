@@ -40,12 +40,12 @@ services:
     ports:
       - 8081:8081
     restart: always
-#  nginx-proxy:
-#    build:
-#      context: .
-#      dockerfile: docker/prod/nginx/nginx-proxy/Dockerfile
-#    ports:
-#      - 80:80
-#    restart: always
-#    depends_on:
-#      - nginx
+  nginx-proxy:
+    build:
+      context: .
+      dockerfile: docker/prod/nginx/nginx-proxy/Dockerfile
+    ports:
+      - 80:80
+    restart: always
+    depends_on:
+      - nginx
