@@ -21,8 +21,6 @@ services:
     depends_on:
       - postgres
     restart: always
-    networks:
-      - fees-fe_bridge-net
   postgres:
     image: postgres
     volumes:
@@ -33,8 +31,6 @@ services:
     depends_on:
       - nginx
     restart: always
-    networks:
-      - fees-fe_bridge-net
   nginx:
     build:
       context: .
@@ -44,21 +40,19 @@ services:
     ports:
       - 8081:8081
     restart: always
-    networks:
-      - fees-fe_bridge-net
-  nginx-proxy:
-    build:
-      context: .
-      dockerfile: docker/prod/nginx/nginx-proxy/Dockerfile
-    volumes:
-      - static_files:/static_files
-    ports:
-      - 80:80
-    restart: always
-    depends_on:
-      - nginx
-    networks:
-      - fees-fe_bridge-net
+#  nginx-proxy:
+#    build:
+#      context: .
+#      dockerfile: docker/prod/nginx/nginx-proxy/Dockerfile
+#    volumes:
+#      - static_files:/static_files
+#    ports:
+#      - 80:80
+#    restart: always
+#    depends_on:
+#      - nginx
+#    networks:
+#      - fees-fe_bridge-net
 
 networks:
   fees-fe_bridge-net:

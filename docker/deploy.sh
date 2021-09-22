@@ -1,4 +1,7 @@
 #!/bin/bash
+echo '---------- Removing old Docker images ----------'
+yes | docker image prune -a
+echo '---------- Removing old Docker images completed ----------'
 git checkout master
 echo '---------- Git checkout master complete ----------'
 git fetch --all
