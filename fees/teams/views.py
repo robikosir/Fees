@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -7,6 +8,7 @@ from fees.fees.models import Fee
 from fees.fees.serializers import FeeSerializer
 from fees.teams.models import Team
 from fees.teams.serializers import TeamSerializer, TeamListSerializer, TeamRetrieveSerializer
+from fees.users.models import User
 from fees.users.serializers import UserSerializer
 
 
