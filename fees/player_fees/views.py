@@ -27,11 +27,10 @@ class PlayerFeesViewSet(mixins.CreateModelMixin,
     def create(self, request, *args, **kwargs):
         data = {
             "team": request.data.get("team"),
-            "time": request.data.get("time")
+            "time": request.data.get("time"),
+            "description": request.data.get("description")
         }
-        send_fee_email(
-            request.data.get("players", []), request.data.get("fees", []), request.data.get("team")
-        ).delay()
+        send_fee_email().delay(request.data.get("players", []), request.data.get("fees", []), request.data.get("team"))
         for player in request.data.get("players", []):
             for fee in request.data.get("fees", []):
                 data["player"] = player

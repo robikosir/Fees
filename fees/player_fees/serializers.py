@@ -15,7 +15,7 @@ class PlayerFeesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PlayerFees
-        fields = ['id', 'player', 'team', 'fee', 'time', 'is_paid']
+        fields = ['id', 'player', 'team', 'fee', 'time', 'is_paid', 'description']
 
 
 class PlayerFeesCreateSerializer(serializers.ModelSerializer):
@@ -25,7 +25,7 @@ class PlayerFeesCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PlayerFees
-        fields = ['id', 'players', 'team', 'fees', 'time', 'is_paid']
+        fields = ['id', 'players', 'team', 'fees', 'time', 'is_paid', 'description']
 
 
 class PlayerFeesDetailSerializer(serializers.ModelSerializer):
@@ -50,5 +50,5 @@ class TeamFeeDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PlayerFees
-        fields = ['id', 'player', 'fee', 'time', 'is_paid']
+        fields = ['id', 'player', 'fee', 'time', 'is_paid', 'description']
 
