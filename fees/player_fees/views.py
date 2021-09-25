@@ -30,7 +30,7 @@ class PlayerFeesViewSet(mixins.CreateModelMixin,
             "time": request.data.get("time"),
             "description": request.data.get("description")
         }
-        send_fee_email().delay(request.data.get("players", []), request.data.get("fees", []), request.data.get("team"))
+        send_fee_email.delay(request.data.get("players", []), request.data.get("fees", []), request.data.get("team"))
         for player in request.data.get("players", []):
             for fee in request.data.get("fees", []):
                 data["player"] = player

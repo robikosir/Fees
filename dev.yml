@@ -13,6 +13,8 @@ services:
     volumes:
       - .:/code
       - static_files:/static_files
+    env_file:
+      - ./.envs/.celery
     ports:
       - "8000:8000"
     depends_on:
@@ -34,8 +36,6 @@ services:
       - 80:80
   redis:
     image: redis:alpine
-    ports:
-      - 6379:6379
   celery:
     restart: always
     build:
