@@ -12,10 +12,13 @@ services:
       dockerfile: docker/prod/python/Dockerfile
     environment:
       DJANGO_SETTINGS_MODULE: config.settings.prod
-    command: gunicorn -w 4 config.wsgi -b 0.0.0.0:8000 --timeout 90 --log-level debug --access-logfile - --error-logfile -
+#    command: gunicorn -w 4 config.wsgi -b 0.0.0.0:8000 --timeout 90 --log-level debug --access-logfile - --error-logfile -
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
       - static_files:/static_files
+    env_file:
+      - ./.envs/.celery
     ports:
       - "8000:8000"
     depends_on:
