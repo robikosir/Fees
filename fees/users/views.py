@@ -42,7 +42,7 @@ class UserViewSet(mixins.CreateModelMixin,
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
             user = User.objects.get(email=data["email"])
-            send_invite_email([data["email"]], data["first_name"], data["password"])
+            send_invite_email([data["email"]], data["first_name"], data["password"]).delay()
 
         team = Team.objects.get(id=data["team_id"])
         if user in team.players.all():

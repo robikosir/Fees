@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "34.141.81.19"]
 
+ENV = "dev"
+
 
 # Application definition
 
@@ -39,8 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'fees.users.apps.UsersConfig',
-    'fees.teams.apps.TeamsConfig',
 ]
 
 MIDDLEWARE = [

@@ -40,6 +40,25 @@ services:
     ports:
       - 8081:8081
     restart: always
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+  celery:
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/dev/python/Dockerfile
+    command: celery -A config worker -l INFO
+    volumes:
+      - ./app:/app
+    env_file:
+      - ./.envs/.postgres
+      - ./.envs/.celery
+    depends_on:
+      - postgres
+      - redis
+      - drf
 #  nginx-proxy:
 #    build:
 #      context: .
