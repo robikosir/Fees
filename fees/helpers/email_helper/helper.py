@@ -12,9 +12,6 @@ from fees.users.models import User
 
 @shared_task(name="send_invite_email")
 def send_invite_email(recipients, first_name, one_time_password):
-    print("Start sleep")
-    sleep(10)
-    print("STOP sleep")
     subject = "You have been invited!"
     invite_content = invite_template.format(first_name=first_name, password=one_time_password)
     base = base_template
