@@ -2,7 +2,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from fees.fees.models import Fee
-from fees.helpers.email_helper.html_rendering import invite_template, base_template
+from fees.helpers.email_helper.html_rendering import invite_template, base_template, fee_email
+from fees.teams.models import Team
 from fees.users.models import User
 
 
@@ -16,11 +17,12 @@ def send_invite_email(recipients, first_name, one_time_password):
     send_mail(subject, "", email_from, recipients, html_message=content)
 
 
-def send_fee_email(recipients_ids, fees_ids):
-    subject = "You have been invited!"
+def send_fee_email(recipients_ids, fees_ids, team_id):
+    subject = "New fee(s) have been added!"
     recipients = User.objects.filter(id__in=recipients_ids)
     fees = Fee.objects.filter(id__in=fees_ids)
-    fee_content = invite_template.format(fees=[f"<li>{fee.name}({fee.price})</li>\n"for fee in fees])
+    team = Team.objects.get(id=team_id)
+    fee_content = fee_email.format(fees="\n".join([f"<li>{fee.name} ({team.currency}{fee.price})</li>"for fee in fees]))
     base = base_template
 
     content = base.format(content=fee_content)
