@@ -22,7 +22,9 @@ def send_fee_email(recipients_ids, fees_ids, team_id):
     recipients = User.objects.filter(id__in=recipients_ids)
     fees = Fee.objects.filter(id__in=fees_ids)
     team = Team.objects.get(id=team_id)
-    fee_content = fee_email.format(fees="\n".join([f"<li>{fee.name} ({team.currency}{fee.price})</li>"for fee in fees]))
+    fee_content = fee_email.format(
+        fees="\n".join([f"<li>{fee.name} (<small>{team.currency}</small> <b>{fee.price}</b>)</li>"for fee in fees])
+    )
     base = base_template
 
     content = base.format(content=fee_content)
