@@ -2,6 +2,7 @@ from rest_framework import mixins, viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from fees.helpers.email_helper.helper import send_fee_email
 from fees.player_fees.models import PlayerFees
 from fees.player_fees.serializers import PlayerFeesSerializer, PlayerFeesDetailSerializer, PlayerFeesCreateSerializer
 
@@ -28,6 +29,8 @@ class PlayerFeesViewSet(mixins.CreateModelMixin,
             "team": request.data.get("team"),
             "time": request.data.get("time")
         }
+        # TODO send async
+        send_fee_email(request.data.get("players", []), request.data.get("fees", []))
         for player in request.data.get("players", []):
             for fee in request.data.get("fees", []):
                 data["player"] = player
