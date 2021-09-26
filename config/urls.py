@@ -23,6 +23,7 @@ from fees.teams.urls import router as team_router
 from fees.users.urls import router as user_router
 from fees.fees.urls import router as fee_router
 from fees.player_fees.urls import router as player_fee_router
+from django.conf.urls.static import static
 
 router = routers.DefaultRouter()
 router.registry.extend(user_router.registry)
@@ -35,7 +36,7 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
     path('api/v1/auth/', obtain_auth_token),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar
