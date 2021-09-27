@@ -1,5 +1,3 @@
-from time import sleep
-
 from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
@@ -23,7 +21,6 @@ def send_invite_email(recipients, first_name, one_time_password):
 
 @shared_task(name="send_fee_email")
 def send_fee_email(recipients_ids, fees_ids, team_id):
-    sleep(10)
     subject = "New fee(s) have been added!"
     recipients = User.objects.filter(id__in=recipients_ids)
     fees = Fee.objects.filter(id__in=fees_ids)
