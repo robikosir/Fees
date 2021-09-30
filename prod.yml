@@ -72,7 +72,7 @@ services:
 #      - nginx
 #    networks:
 #      - fees-fe_bridge-net
-
-networks:
-  fees-fe_bridge-net:
-    external: true
+#
+#networks:
+#  fees-fe_bridge-net:
+#    external: true
