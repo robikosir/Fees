@@ -49,6 +49,8 @@ services:
     build:
       context: .
       dockerfile: docker/prod/python/Dockerfile
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.prod
     command: celery -A config worker -l INFO
     volumes:
       - .:/code
@@ -57,8 +59,8 @@ services:
       - ./.envs/.postgres
       - ./.envs/.celery
     depends_on:
-      - postgres
       - redis
+      - postgres
       - drf
 #  nginx-proxy:
 #    build:
