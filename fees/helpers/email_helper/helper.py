@@ -1,4 +1,5 @@
 from celery import shared_task
+from celery.utils.log import get_task_logger
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -7,6 +8,9 @@ from fees.fees.models import Fee
 from fees.helpers.email_helper.html_rendering import invite_template, base_template, fee_email
 from fees.teams.models import Team
 from fees.users.models import User
+
+
+logger = get_task_logger(__name__)
 
 
 @shared_task(name="send_invite_email")
@@ -36,6 +40,8 @@ def send_fees_notification(recipients_ids, fees_ids, team_id):
     send_mail(subject, "", email_from, [recipient.email for recipient in recipients], html_message=content)
 
     for recipient in recipients:
-        if recipient.phone_number:
+        logger.info(f'Sending sms to {recipient.phone_numbe}')
+        print(recipient.phone_number)
+        if len(recipient.phone_number) > 0:
             SmsSender.send_sms(recipient.phone_number, [f"{fee.name} ({team.currency} {fee.price})\n"for fee in fees])
 

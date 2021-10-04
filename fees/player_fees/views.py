@@ -30,7 +30,7 @@ class PlayerFeesViewSet(mixins.CreateModelMixin,
             "time": request.data.get("time"),
             "description": request.data.get("description")
         }
-        send_fees_notification.delay(
+        send_fees_notification(
             request.data.get("players", []), request.data.get("fees", []), request.data.get("team")
         )
 
