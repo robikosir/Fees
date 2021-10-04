@@ -1,6 +1,8 @@
 from config.settings.base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
+from fees.common.sms.vonage_sms_manager import VonageSmsManager
+
 DEBUG = True
 ENV = "prod"
 
@@ -25,3 +27,7 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+vonage_api_key = "7b26c38b"
+vonage_api_secret = "oIugTHFhR1aOgImM"
+SMS_MANAGER = VonageSmsManager('Promoklik SMS', vonage_api_key, vonage_api_secret)

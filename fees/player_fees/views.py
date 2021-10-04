@@ -2,7 +2,7 @@ from rest_framework import mixins, viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from fees.helpers.email_helper.helper import send_fee_email
+from fees.helpers.email_helper.helper import send_fees_notification
 from fees.player_fees.models import PlayerFees
 from fees.player_fees.serializers import PlayerFeesSerializer, PlayerFeesDetailSerializer, PlayerFeesCreateSerializer
 
@@ -30,7 +30,10 @@ class PlayerFeesViewSet(mixins.CreateModelMixin,
             "time": request.data.get("time"),
             "description": request.data.get("description")
         }
-        send_fee_email.delay(request.data.get("players", []), request.data.get("fees", []), request.data.get("team"))
+        send_fees_notification.delay(
+            request.data.get("players", []), request.data.get("fees", []), request.data.get("team")
+        )
+
         for player in request.data.get("players", []):
             for fee in request.data.get("fees", []):
                 data["player"] = player
