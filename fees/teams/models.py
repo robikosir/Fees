@@ -10,6 +10,9 @@ class Team(models.Model):
 
     currency = models.CharField('Currency', max_length=128)
 
+    account_number = models.CharField('Account number', max_length=128, blank=True)
+    bank_code = models.CharField('Bank code', max_length=128, blank=True)
+
     def __str__(self):
         return self.name
 
