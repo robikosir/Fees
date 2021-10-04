@@ -51,7 +51,8 @@ services:
       dockerfile: docker/prod/python/Dockerfile
     command: celery -A config worker -l INFO
     volumes:
-      - ./app:/app
+      - .:/code
+      - static_files:/static_files
     env_file:
       - ./.envs/.postgres
       - ./.envs/.celery
