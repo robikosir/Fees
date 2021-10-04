@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from fees.common.sms.vonage_sms_manager import VonageSmsManager
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -163,3 +165,8 @@ CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_serializer
 CELERY_RESULT_SERIALIZER = "json"
+
+
+vonage_api_key = "7b26c38b"
+vonage_api_secret = "oIugTHFhR1aOgImM"
+SMS_MANAGER = VonageSmsManager('Promoklik SMS', vonage_api_key, vonage_api_secret)
