@@ -13,7 +13,7 @@ class TeamSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Team
-        fields = ['id', 'name', 'currency', 'players', 'admins']
+        fields = ['id', 'name', 'currency', 'players', 'admins', 'account_number', 'bank_code']
         depth = 2
 
 
@@ -24,7 +24,7 @@ class TeamListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Team
-        fields = ['id', 'name', 'currency', 'players', 'admins', 'team_fees_total']
+        fields = ['id', 'name', 'currency', 'players', 'admins', 'team_fees_total', 'account_number', 'bank_code']
 
     def get_team_fees_total(self, obj):
         return sum(player_fee.fee.price for player_fee in obj.player_fees_team.all())
