@@ -17,5 +17,5 @@ jobs:
           cd Fees
           . ./docker/deploy.sh prod.yml
         host: ${{ secrets.PRODUCTION_IP }}
-        user: fees
+        user: ubuntu
         key: ${{ secrets.PRODUCTION_PRIVATE_KEY}}
