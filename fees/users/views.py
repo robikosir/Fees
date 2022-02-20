@@ -46,7 +46,7 @@ class UserViewSet(mixins.CreateModelMixin,
 
         team = Team.objects.get(id=data["team_id"])
         if user in team.players.all():
-            return Response("already in team")
+            return Response("Already in team", status=status.HTTP_409_CONFLICT)
         team.players.add(user)
         team.save()
         headers = self.get_success_headers(serializer.data)
