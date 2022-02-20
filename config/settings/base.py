@@ -153,7 +153,7 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "feeapp.noreply@gmail.com"
-EMAIL_HOST_PASSWORD = "hfda56k1@"
+EMAIL_HOST_PASSWORD = "xkmszoidotetsuqb"
 
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
