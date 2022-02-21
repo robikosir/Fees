@@ -19,3 +19,4 @@ jobs:
         host: ${{ secrets.PRODUCTION_IP }}
         user: ubuntu
         key: ${{ secrets.PRODUCTION_PRIVATE_KEY}}
+        args: "-tt -vvv"

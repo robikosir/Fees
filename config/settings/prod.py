@@ -10,7 +10,7 @@ STATIC_ROOT = "/static_files/"
 
 SECRET_KEY = 'ghashaszh12h589hsnaobn9012u589poabsngka'
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "54.74.42.68"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "34.246.132.123"]
 
 INSTALLED_APPS.append(
     'debug_toolbar',
