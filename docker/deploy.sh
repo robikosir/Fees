@@ -13,7 +13,7 @@ sudo sudo docker-compose -f $1 build
 sudo echo '---------- Docker compose build complete ----------'
 sudo echo '---------- Docker compose deploy started ----------'
 sudo sudo docker-compose -f $1 up -d
-until [ "`docker inspect -f {{.State.Running}} celery`"=="true" ]; do
+until [ "`sudo docker inspect -f {{.State.Running}} celery`"=="true" ]; do
     sleep 0.1;
     echo "waiting"
 done;
