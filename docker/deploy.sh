@@ -1,22 +1,22 @@
 #!/bin/bash
-echo '---------- Removing old Docker images ----------'
-yes | docker image prune -a
-echo '---------- Removing old Docker images completed ----------'
-git checkout master
-echo '---------- Git checkout master complete ----------'
-git fetch --all
-echo '---------- Git fetch complete ----------'
-git reset --hard origin/master
-echo '---------- Git reset master complete ----------'
-echo '---------- Docker compose build started ----------'
-sudo docker-compose -f $1 build
-echo '---------- Docker compose build complete ----------'
-echo '---------- Docker compose deploy started ----------'
-sudo docker-compose -f $1 up -d
-echo '---------- Docker compose deploy complete ----------'
-echo '---------- Docker compose migrate --run-syncdb started ----------'
-sudo docker-compose -f $1 run --rm drf python manage.py migrate --run-syncdb
-echo '---------- Docker compose migrate complete ----------'
-echo '---------- Docker compose collectstatic started ----------'
-sudo docker-compose -f $1 run --rm drf python manage.py collectstatic --noinput
-echo '---------- Docker compose collectstatic completed ----------'
+sudo echo '---------- Removing old Docker images ----------'
+sudo yes | docker image prune -a
+sudo echo '---------- Removing old Docker images completed ----------'
+sudo git checkout master
+sudo echo '---------- Git checkout master complete ----------'
+sudo git fetch --all
+sudo echo '---------- Git fetch complete ----------'
+sudo git reset --hard origin/master
+sudo echo '---------- Git reset master complete ----------'
+sudo echo '---------- Docker compose build started ----------'
+sudo sudo docker-compose -f $1 build
+sudo echo '---------- Docker compose build complete ----------'
+sudo echo '---------- Docker compose deploy started ----------'
+sudo sudo docker-compose -f $1 up -d
+sudo echo '---------- Docker compose deploy complete ----------'
+sudo echo '---------- Docker compose migrate --run-syncdb started ----------'
+sudo sudo docker-compose -f $1 run --rm drf python manage.py migrate --run-syncdb
+sudo echo '---------- Docker compose migrate complete ----------'
+sudo echo '---------- Docker compose collectstatic started ----------'
+sudo sudo docker-compose -f $1 run --rm drf python manage.py collectstatic --noinput
+sudo echo '---------- Docker compose collectstatic completed ----------'
