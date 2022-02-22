@@ -13,10 +13,7 @@ sudo sudo docker-compose -f $1 build
 sudo echo '---------- Docker compose build complete ----------'
 sudo echo '---------- Docker compose deploy started ----------'
 sudo sudo docker-compose -f $1 up -d
-until [ "`sudo docker inspect -f {{.State.Running}} celery`"=="true" ]; do
-    sleep 0.1;
-    echo "waiting"
-done;
+sleep 20;
 sudo echo '---------- Docker compose deploy complete ----------'
 sudo echo '---------- Docker compose migrate --run-syncdb started ----------'
 sudo sudo docker-compose -f $1 run --rm drf python manage.py migrate --run-syncdb
