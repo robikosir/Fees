@@ -16,10 +16,6 @@ jobs:
           echo 'Connected to server, starting deployment'
           cd Fees
           sh -x ./docker/deploy.sh prod.yml
-          sudo docker-compose -f prod.yml run --rm drf python manage.py migrate --run-syncdb
-          sudo echo '---------- Docker compose migrate complete ----------'
-          sudo echo '---------- Docker compose collectstatic started ----------'
-          sudo docker-compose -f prod.yml run --rm drf python manage.py collectstatic --noinput
           echo 'Connected to server, finishing deployment'
         host: ${{ secrets.PRODUCTION_IP }}
         user: ubuntu

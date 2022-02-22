@@ -7,6 +7,7 @@ volumes:
 
 services:
   drf:
+    container_name: django_rest
     build:
       context: .
       dockerfile: docker/prod/python/Dockerfile
