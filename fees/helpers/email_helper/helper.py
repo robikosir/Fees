@@ -21,7 +21,7 @@ def send_invite_email(recipients, first_name, one_time_password):
 
     content = base.format(content=invite_content)
     email_from = settings.EMAIL_HOST_USER
-    send_mail(subject, "", email_from, recipients, html_message=content)
+    #send_mail(subject, "", email_from, recipients, html_message=content)
 
 
 @shared_task(name="send_fee_email")
@@ -37,7 +37,7 @@ def send_fees_notification(recipients_ids, fees_ids, team_id):
 
     content = base.format(content=fee_content)
     email_from = settings.EMAIL_HOST_USER
-    send_mail(subject, "", email_from, [recipient.email for recipient in recipients], html_message=content)
+    #send_mail(subject, "", email_from, [recipient.email for recipient in recipients], html_message=content)
 
     # for recipient in recipients:
     #     logger.info(f'Sending sms to {recipient.phone_numbe}')
