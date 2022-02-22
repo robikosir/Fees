@@ -4,7 +4,15 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.utils.translation import ugettext_lazy as _
 
 from .models import User
+from fees.helpers.email_helper.helper import send_invite_email
 
+
+@admin.action(description='Send email with password')
+def send_new_password(modeladmin, request, queryset):
+    for user in queryset:
+        new_password = User.objects.make_random_password()
+        user.set_password(new_password)
+        send_invite_email([user.email], user.first_name, new_password)
 
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
@@ -26,3 +34,4 @@ class UserAdmin(DjangoUserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'is_staff')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
+    actions = [send_new_password]

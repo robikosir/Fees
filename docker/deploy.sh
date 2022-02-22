@@ -21,4 +21,5 @@ sudo echo '---------- Docker compose collectstatic started ----------'
 sudo sudo docker-compose -f $1 run --rm drf python manage.py collectstatic --noinput
 sudo echo '---------- Docker compose collectstatic completed123 ----------'
 sudo echo '---------- Deploy.sh completed ----------'
+sudo git rev-parse HEAD
 sudo exit N
