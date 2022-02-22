@@ -13,12 +13,16 @@ sudo sudo docker-compose -f $1 build
 sudo echo '---------- Docker compose build complete ----------'
 sudo echo '---------- Docker compose deploy started ----------'
 sudo sudo docker-compose -f $1 up -d
+until [ "`docker inspect -f {{.State.Running}} celery`"=="true" ]; do
+    sleep 0.1;
+    echo "waiting"
+done;
 sudo echo '---------- Docker compose deploy complete ----------'
 sudo echo '---------- Docker compose migrate --run-syncdb started ----------'
 sudo sudo docker-compose -f $1 run --rm drf python manage.py migrate --run-syncdb
-#sudo echo '---------- Docker compose migrate complete ----------'
-##sudo echo '---------- Docker compose collectstatic started ----------'
-##sudo sudo docker-compose -f $1 run --rm drf python manage.py collectstatic --noinput
-##sudo echo '---------- Docker compose collectstatic completed123 ----------'
-#sudo echo '---------- Deploy.sh completed ----------'
+sudo echo '---------- Docker compose migrate complete ----------'
+sudo echo '---------- Docker compose collectstatic started ----------'
+sudo sudo docker-compose -f $1 run --rm drf python manage.py collectstatic --noinput
+sudo echo '---------- Docker compose collectstatic completed123 ----------'
+sudo echo '---------- Deploy.sh completed ----------'
 sudo git rev-parse HEAD
