@@ -12,7 +12,8 @@ def send_new_password(modeladmin, request, queryset):
     for user in queryset:
         new_password = User.objects.make_random_password()
         user.set_password(new_password)
-        send_invite_email([user.email], user.first_name, new_password)
+        user.save()
+        send_invite_email.delay([user.email], user.first_name, new_password)
 
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
