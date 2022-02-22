@@ -19,4 +19,6 @@ sudo sudo docker-compose -f $1 run --rm drf python manage.py migrate --run-syncd
 sudo echo '---------- Docker compose migrate complete ----------'
 sudo echo '---------- Docker compose collectstatic started ----------'
 sudo sudo docker-compose -f $1 run --rm drf python manage.py collectstatic --noinput
-sudo echo '---------- Docker compose collectstatic completed ----------'
+sudo echo '---------- Docker compose collectstatic completed123 ----------'
+sudo echo '---------- Deploy.sh completed ----------'
+sudo exit H
