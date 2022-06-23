@@ -1,5 +1,4 @@
 -r base.txt
 
 gunicorn==20.1.0
-vonage==2.5.5
 

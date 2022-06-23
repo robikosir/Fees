@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from fees.helpers.email_helper.helper import send_fees_notification
 from fees.player_fees.models import PlayerFees
 from fees.player_fees.serializers import PlayerFeesSerializer, PlayerFeesDetailSerializer, PlayerFeesCreateSerializer
+from fees.teams.models import Team
 
 
 class PlayerFeesViewSet(mixins.CreateModelMixin,
@@ -16,6 +17,10 @@ class PlayerFeesViewSet(mixins.CreateModelMixin,
     serializer_class = PlayerFeesSerializer
     queryset = PlayerFees.objects.all()
     permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self, *args, **kwargs):
+        teams = Team.objects.filter(players__in=[self.request.user])
+        return PlayerFees.objects.filter(team_id__in=teams)
 
     def get_serializer_class(self):
         if self.action == 'list' or self.action == 'retrieve':
