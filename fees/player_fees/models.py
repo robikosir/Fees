@@ -14,3 +14,6 @@ class PlayerFees(models.Model):
     time = models.DateField(default=datetime.now)
     is_paid = models.BooleanField(default=False)
     description = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ['-time', 'pk']
