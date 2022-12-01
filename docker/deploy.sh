@@ -16,6 +16,6 @@ sudo docker-compose -f $1 up -d
 sudo echo '---------- Docker compose deploy complete ----------'
 sudo echo '---------- Docker compose migrate --run-syncdb started ----------'
 sudo docker exec django_rest python manage.py migrate --run-syncdb
-sudo docker exec django_rest python manage.py collectstatic --noinput
+sudo docker exec django_rest python manage.py collectstatic
 sudo echo '---------- Deploy.sh completed ----------'
 sudo git rev-parse HEAD
