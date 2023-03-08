@@ -35,9 +35,6 @@ class PlayerFeesViewSet(mixins.CreateModelMixin,
             "time": request.data.get("time"),
             "description": request.data.get("description")
         }
-        send_fees_notification(
-            request.data.get("players", []), request.data.get("fees", []), request.data.get("team")
-        )
 
         for player in request.data.get("players", []):
             for fee in request.data.get("fees", []):
@@ -47,4 +44,9 @@ class PlayerFeesViewSet(mixins.CreateModelMixin,
                 serializer.is_valid(raise_exception=True)
                 self.perform_create(serializer)
                 headers = self.get_success_headers(serializer.data)
+
+        send_fees_notification.delay(
+            request.data.get("players", []), request.data.get("fees", []), request.data.get("team")
+        )
+
         return Response("created", status=status.HTTP_201_CREATED, headers=headers)
